@@ -14,7 +14,8 @@ func NewServer(timeout time.Duration) *gin.Engine {
 	// instantiate a new gin router
 	r := gin.New()
 
-	// TODO: proxy defintion
+	// limited proxies
+	r.SetTrustedProxies([]string{"localhost"})
 
 	// set the default middlewares
 	r.Use(gin.Logger())
