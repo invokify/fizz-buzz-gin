@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fizz-buzz-gin/pkg/server"
 	"log"
 	"os"
 )
@@ -15,5 +16,8 @@ func main() {
 	log.Printf("Starting server on port %s", port)
 
 	// instanciate the server
+	s := server.NewServer()
+
 	// start the server
+	s.Run(":" + port)
 }

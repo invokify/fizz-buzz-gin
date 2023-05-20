@@ -1,9 +1,9 @@
-package fizzbuzz_test
+package business_test
 
 import (
 	"context"
 	"errors"
-	fizzbuzz "fizz-buzz-gin/pkg/business"
+	business "fizz-buzz-gin/pkg/business"
 	"reflect"
 	"testing"
 	"time"
@@ -12,7 +12,7 @@ import (
 func TestFizzBuzz(t *testing.T) {
 	for i, tc := range getTestData() {
 		// execute the fizzbuzz function
-		result, err := fizzbuzz.FizzBuzz(tc.ctx, tc.int1, tc.int2, tc.limit, tc.str1, tc.str2)
+		result, err := business.FizzBuzz(tc.ctx, tc.int1, tc.int2, tc.limit, tc.str1, tc.str2)
 
 		// check the error wether it is expected or not
 		if !errors.Is(err, tc.expectErr) {
@@ -39,27 +39,27 @@ func getTestData() []fizzBuzzTestData {
 		{
 			ctx:       context.TODO(),
 			int1:      0,
-			expectErr: fizzbuzz.ErrIntIsZero,
+			expectErr: business.ErrIntIsZero,
 		},
 		{
 			ctx:       context.TODO(),
 			int1:      1,
 			int2:      0,
-			expectErr: fizzbuzz.ErrIntIsZero,
+			expectErr: business.ErrIntIsZero,
 		},
 		{
 			ctx:       context.TODO(),
 			int1:      1,
 			int2:      2,
 			limit:     -1,
-			expectErr: fizzbuzz.ErrLimitIsNegativeOrZero,
+			expectErr: business.ErrLimitIsNegativeOrZero,
 		},
 		{
 			ctx:       context.TODO(),
 			int1:      1,
 			int2:      2,
 			limit:     0,
-			expectErr: fizzbuzz.ErrLimitIsNegativeOrZero,
+			expectErr: business.ErrLimitIsNegativeOrZero,
 		},
 		{
 			ctx: func() context.Context {
@@ -149,7 +149,7 @@ func BenchmarkFizzBuzz(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		for _, tc := range getTestData() {
 			// execute the fizzbuzz function
-			fizzbuzz.FizzBuzz(tc.ctx, tc.int1, tc.int2, tc.limit, tc.str1, tc.str2)
+			business.FizzBuzz(tc.ctx, tc.int1, tc.int2, tc.limit, tc.str1, tc.str2)
 		}
 	}
 }
@@ -159,7 +159,7 @@ func BenchmarkFizzBuzz2(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		for _, tc := range getTestData() {
 			// execute the fizzbuzz function
-			fizzbuzz.FizzBuzz2(tc.ctx, tc.int1, tc.int2, tc.limit, tc.str1, tc.str2)
+			business.FizzBuzz2(tc.ctx, tc.int1, tc.int2, tc.limit, tc.str1, tc.str2)
 		}
 	}
 }
