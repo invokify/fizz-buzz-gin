@@ -1,10 +1,13 @@
 package server
 
 import (
+	"fizz-buzz-gin/pkg/server/docs"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"     // swagger embed files
+	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 )
 
 func NewServer(timeout time.Duration) *gin.Engine {
@@ -21,6 +24,9 @@ func NewServer(timeout time.Duration) *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
+	// Serve swagger documentation
+	r.GET("/swagger/*any", setDocumentationInfo, ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 	// set the default route for health check
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
@@ -35,4 +41,10 @@ func NewServer(timeout time.Duration) *gin.Engine {
 	}
 
 	return r
+}
+
+func setDocumentationInfo(c *gin.Context) {
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = c.Request.Host
+	docs.SwaggerInfo.BasePath = "/api/v1"
 }

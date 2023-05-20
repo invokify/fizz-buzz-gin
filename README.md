@@ -30,6 +30,11 @@ The core of the game rules are located in the `pkg/business` folder.
 
 ## Getting started
 
+For both following cases, you can test the endpoint:
+
+- either in the [browser](http://localhost/api/v1/fizz-buzz?string1=Fizz&string2=Buzz&int1=3&int2=5&limit=10)
+- either in [swagger](http://localhost/swagger/index.html)
+
 ### Launch locally
 
 > The project has been set up on Windows, following commands might change on other OS

@@ -1,0 +1,60 @@
+definitions:
+  server.HTTPError:
+    properties:
+      message: {}
+    type: object
+info:
+  contact: {}
+paths:
+  /fizz-buzz:
+    get:
+      description: 'The original fizz-buzz consists in writing all numbers from `1`
+        to `100`, and replacing all multiples of `3` by `fizz`, all multiples of `5`
+        by `buzz`, and all multiples of `15` by `fizzbuzz`. The output would look
+        like this: 1,2,fizz,4,buzz,fizz,7,8,fizz,buzz,11,fizz,13,14,fizzbuzz,fizz,...'
+      operationId: launch-fizz-buzz
+      parameters:
+      - description: First string related to multiples of int1
+        in: query
+        name: string1
+        type: string
+      - description: Second string related to multiples of int2
+        in: query
+        name: string2
+        type: string
+      - description: multiple related to string1
+        in: query
+        name: int1
+        required: true
+        type: integer
+      - description: multiple related to string2
+        in: query
+        name: int2
+        required: true
+        type: integer
+      - description: number of elements to return
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Launches the game with the required parameters
+      tags:
+      - fizz-buzz
+swagger: "2.0"

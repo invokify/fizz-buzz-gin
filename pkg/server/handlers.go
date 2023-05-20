@@ -18,6 +18,21 @@ const (
 	ErrMsgNotInteger  = "%s failed to bind field value to int"
 )
 
+// fizzBuzzHandler launches the game with the required parameters
+// @Summary Launches the game with the required parameters
+// @Description The original fizz-buzz consists in writing all numbers from `1` to `100`, and replacing all multiples of `3` by `fizz`, all multiples of `5` by `buzz`, and all multiples of `15` by `fizzbuzz`. The output would look like this: 1,2,fizz,4,buzz,fizz,7,8,fizz,buzz,11,fizz,13,14,fizzbuzz,fizz,...
+// @ID launch-fizz-buzz
+// @Tags fizz-buzz
+// @Produce  json
+// @Param string1 query string false "First string related to multiples of int1"
+// @Param string2 query string false "Second string related to multiples of int2"
+// @Param int1 query int true "multiple related to string1"
+// @Param int2 query int true "multiple related to string2"
+// @Param limit query int true "number of elements to return"
+// @Success 200 {object} []string
+// @Failure 400 {object} server.HTTPError
+// @Failure 503 {object} server.HTTPError
+// @Router /fizz-buzz [get]
 func fizzBuzzHandler(timeout time.Duration) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// Retrieve the query parameters if exist otherwise use default values
