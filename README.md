@@ -21,3 +21,27 @@ The output would look like this:
 > - all multiples of int1 are replaced by string1,
 > - all multiples of int2 are replaced by string2,
 > - all multiples of int1 and int2 are replaced by string1string2
+
+## Getting started
+
+### Launch locally
+
+> The project has been set up on Windows, following commands might change on other OS
+
+Launch all tests and check coverage:
+
+```
+go test -race -covermode=atomic ./...
+```
+
+Build:
+
+```
+go test -race -covermode=atomic ./...
+```
+
+Run:
+
+```
+go build -o=fizzBuzzApp .\cmd\api\main.go
+```

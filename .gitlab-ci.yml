@@ -1,0 +1,32 @@
+stages:
+  - build
+  - test
+  - deploy
+  - cleanup
+
+build-fizz-buzz: # This job runs in the build stage, which runs first.
+  stage: build
+  image: docker:19.03.12
+  services:
+    - docker:19.03.12-dind
+  variables:
+    # Use TLS https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#tls-enabled
+    # DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_CERTDIR: "/certs"
+    IMAGE_TAG: latest
+  script:
+    - echo "Compiling PRODUCT SERVICE..."
+    - docker pull $CI_REGISTRY_IMAGE/api:$IMAGE_TAG || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE/api:$IMAGE_TAG --tag $CI_REGISTRY_IMAGE/api:$IMAGE_TAG .
+    - docker push $CI_REGISTRY_IMAGE/api:$IMAGE_TAG
+  only:
+    refs:
+      - main
+
+test-fizz-buzz: # This job runs in the test stage, which runs second.
+  stage: test
+  image: golang:1.20.1
+  script:
+    - go version
+    - go mod download
+    - go test -v ./...
