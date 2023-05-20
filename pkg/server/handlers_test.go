@@ -14,6 +14,18 @@ import (
 	"time"
 )
 
+func TestPingHandler(t *testing.T) {
+	e := server.NewServer(time.Duration(1) * time.Second)
+	req := httptest.NewRequest(http.MethodGet, "/ping", nil)
+	rec := httptest.NewRecorder()
+
+	e.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Errorf("expected status code %d but got %d", http.StatusOK, rec.Code)
+	}
+}
+
 func TestFizzBuzzHandler(t *testing.T) {
 	for i, tc := range getTestData() {
 		q := make(url.Values)
