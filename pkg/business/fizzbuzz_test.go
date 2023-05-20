@@ -143,3 +143,23 @@ func getTestData() []fizzBuzzTestData {
 		},
 	}
 }
+
+// Benchmark test function for FizzBuzz
+func BenchmarkFizzBuzz(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		for _, tc := range getTestData() {
+			// execute the fizzbuzz function
+			fizzbuzz.FizzBuzz(tc.ctx, tc.int1, tc.int2, tc.limit, tc.str1, tc.str2)
+		}
+	}
+}
+
+// Benchmark test function for FizzBuzz2
+func BenchmarkFizzBuzz2(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		for _, tc := range getTestData() {
+			// execute the fizzbuzz function
+			fizzbuzz.FizzBuzz2(tc.ctx, tc.int1, tc.int2, tc.limit, tc.str1, tc.str2)
+		}
+	}
+}
