@@ -18,7 +18,7 @@ build-fizz-buzz: # This job runs in the build stage, which runs first.
     - echo "Logging in private container..."
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - echo "Compiling PRODUCT SERVICE..."
+    - echo "Compiling Fizz Buzz REST API..."
     - docker pull $CI_REGISTRY_IMAGE/api:$IMAGE_TAG || true
     - docker build --cache-from $CI_REGISTRY_IMAGE/api:$IMAGE_TAG --tag $CI_REGISTRY_IMAGE/api:$IMAGE_TAG .
     - docker push $CI_REGISTRY_IMAGE/api:$IMAGE_TAG

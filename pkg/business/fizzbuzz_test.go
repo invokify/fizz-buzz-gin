@@ -26,6 +26,23 @@ func TestFizzBuzz(t *testing.T) {
 	}
 }
 
+func TestFizzBuzz2(t *testing.T) {
+	for i, tc := range getTestData() {
+		// execute the fizzbuzz function
+		result, err := business.FizzBuzz2(tc.ctx, tc.int1, tc.int2, tc.limit, tc.str1, tc.str2)
+
+		// check the error wether it is expected or not
+		if !errors.Is(err, tc.expectErr) {
+			t.Errorf("test %d: expected error %v, but got: %v", i, tc.expectErr, err)
+		}
+
+		// check the result wether it is expected or not
+		if !reflect.DeepEqual(result, tc.expectResult) {
+			t.Errorf("test %d: expected result %v, but got: %v", i, tc.expectResult, result)
+		}
+	}
+}
+
 type fizzBuzzTestData struct {
 	ctx               context.Context
 	int1, int2, limit int

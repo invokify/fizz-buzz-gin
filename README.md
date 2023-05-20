@@ -31,17 +31,23 @@ The output would look like this:
 Launch all tests and check coverage:
 
 ```
-go test -race -covermode=atomic ./...
+go test -race -covermode atomic -coverprofile .\coverage.txt ./...
 ```
 
 Build:
 
 ```
-go test -race -covermode=atomic ./...
+go build -o=fizzBuzzApp .\cmd\api\main.go
 ```
 
 Run:
 
 ```
-go build -o=fizzBuzzApp .\cmd\api\main.go
+go run .\cmd\api\main.go
+```
+
+### Using Docker Compose
+
+```
+docker-compose up -d
 ```
