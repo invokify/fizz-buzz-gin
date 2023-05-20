@@ -15,12 +15,18 @@ The output would look like this:
 ```
 
 > More specifically :
-> Expose a REST API endpoint that accepts five parameters : two strings (say, string1 and string2), and three integers (say, int1, int2 and limit), and returns a JSON
+> `Expose a REST API endpoint` that accepts five parameters : two strings (say, string1 and string2), and three integers (say, int1, int2 and limit), and returns a JSON
 > It must return a list of strings with numbers from 1 to limit, where:
 >
 > - all multiples of int1 are replaced by string1,
 > - all multiples of int2 are replaced by string2,
 > - all multiples of int1 and int2 are replaced by string1string2
+
+## Solution
+
+I have used `gin-gonic` framework to handle the web server part, and build/test my endpoints. This part is located in the `pkg/server` folder.
+
+The core of the game rules are located in the `pkg/business` folder.
 
 ## Getting started
 
@@ -47,6 +53,12 @@ go run .\cmd\api\main.go
 ```
 
 ### Using Docker Compose
+
+#### **_Requirements_**
+
+_Install Docker Engine_
+
+The image is build in the Gitlab CI according to the `.gitlab-ci.yml` file and the `Dockerfile`. It it then pushed to the registry. The `docker-compose.yaml` file pulls it from the registry and runs a container within Docker Engine.
 
 ```
 docker-compose up -d
