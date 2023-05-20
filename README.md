@@ -48,7 +48,7 @@ go test -race -covermode atomic -coverprofile .\coverage.txt ./...
 Build:
 
 ```
-go build -o=fizzBuzzApp .\cmd\api\main.go
+go build -o fizzBuzzApp .\cmd\api\main.go
 ```
 
 Run:
