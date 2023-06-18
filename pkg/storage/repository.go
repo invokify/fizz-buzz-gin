@@ -2,7 +2,6 @@ package storage
 
 import (
 	"database/sql"
-	"sync"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -23,7 +22,7 @@ const (
 )
 
 type Stats struct {
-	mu sync.Mutex
+	// mu sync.Mutex
 	db *sql.DB
 }
 
