@@ -70,6 +70,14 @@ _Install Docker Engine_
 
 The image is build in the Gitlab CI according to the `.gitlab-ci.yml` file and the `Dockerfile`. It it then pushed to the registry. The `docker-compose.yaml` file pulls it from the registry and runs a container within Docker Engine.
 
+- To update the image:
+
+```
+docker-compose pull
+```
+
+- To run the image
+
 ```
 docker-compose up -d
 ```

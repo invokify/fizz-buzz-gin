@@ -103,7 +103,9 @@ func fizzBuzzHandler(timeout time.Duration) gin.HandlerFunc {
 		// Save the parameters and result in storage
 		err = storage.SaveLastCall(str1, str2, int1, int2, limit, result)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, "Error saving the last call to the fizz-buzz endpoint")
+			c.JSON(
+				http.StatusServiceUnavailable,
+				NewHTTPError(http.StatusServiceUnavailable, err.Error()))
 			return
 		}
 
