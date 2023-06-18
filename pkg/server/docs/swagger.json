@@ -74,6 +74,33 @@
                     }
                 }
             }
+        },
+        "/stats": {
+            "get": {
+                "description": "Everytime the fizz-buzz endpoint is called, the parameters related to the call are saved in a database, along with the time of the call, and the result given to the user. Calling this endpoint will return all statistics about the calls made so far.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "fizz-buzz"
+                ],
+                "summary": "Returns the parameters and result of the last calls to the fizz-buzz endpoint",
+                "operationId": "get-fizz-buzz-stats",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/storage.StatsCounterDto"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -81,6 +108,49 @@
             "type": "object",
             "properties": {
                 "message": {}
+            }
+        },
+        "storage.StatsCounterDto": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "stats": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/storage.StatsDto"
+                    }
+                }
+            }
+        },
+        "storage.StatsDto": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "int1": {
+                    "type": "integer"
+                },
+                "int2": {
+                    "type": "integer"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "result": {
+                    "type": "string"
+                },
+                "str1": {
+                    "type": "string"
+                },
+                "str2": {
+                    "type": "string"
+                }
             }
         }
     }

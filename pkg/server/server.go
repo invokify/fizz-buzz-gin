@@ -38,6 +38,7 @@ func NewServer(timeout time.Duration) *gin.Engine {
 	api := r.Group("/api/v1")
 	{
 		api.GET("/fizz-buzz", fizzBuzzHandler(timeout))
+		api.GET("/stats", statisticsHandler())
 	}
 
 	return r

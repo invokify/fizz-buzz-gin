@@ -14,19 +14,24 @@ The output would look like this:
 1,2,fizz,4,buzz,fizz,7,8,fizz,buzz,11,fizz,13,14,fizzbuzz,fizz,...
 ```
 
-> More specifically :
-> `Expose a REST API endpoint` that accepts five parameters : two strings (say, string1 and string2), and three integers (say, int1, int2 and limit), and returns a JSON
-> It must return a list of strings with numbers from 1 to limit, where:
->
-> - all multiples of int1 are replaced by string1,
-> - all multiples of int2 are replaced by string2,
-> - all multiples of int1 and int2 are replaced by string1string2
+## Problem
+
+Expose a REST API endpoint `/fizz-buzz` that accepts five parameters : two strings (say, string1 and string2), and three integers (say, int1, int2 and limit), and returns a JSON
+It must return a list of strings with numbers from 1 to limit, where:
+
+- all multiples of int1 are replaced by string1,
+- all multiples of int2 are replaced by string2,
+- all multiples of int1 and int2 are replaced by string1string2
+
+Expose a REST API endpoint `/stats` that retrieves all statistics about the calls
 
 ## Solution
 
 I have used `gin-gonic` framework to handle the web server part, and build/test my endpoints. This part is located in the `pkg/server` folder.
 
 The core of the game rules are located in the `pkg/business` folder.
+
+The statistics storage is a SQlite database and the service client is located in `pkg/storage` folder.
 
 ## Getting started
 

@@ -1,2 +1,6 @@
 .vscode
 fizzBuzzApp
+*.db
+coverage.txt
+cmd/api/*.exe
+cmd/api/*.db

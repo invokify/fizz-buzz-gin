@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fizz-buzz-gin/pkg/business"
+	"fizz-buzz-gin/pkg/storage"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -99,7 +100,37 @@ func fizzBuzzHandler(timeout time.Duration) gin.HandlerFunc {
 			return
 		}
 
+		// Save the parameters and result in storage
+		err = storage.SaveLastCall(str1, str2, int1, int2, limit, result)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, "Error saving the last call to the fizz-buzz endpoint")
+			return
+		}
+
 		// Return the result
 		c.JSON(200, result)
+	}
+}
+
+// statsHandler returns the parameters and result of the last calls to the fizz-buzz endpoint
+// @Summary Returns the parameters and result of the last calls to the fizz-buzz endpoint
+// @Description Everytime the fizz-buzz endpoint is called, the parameters related to the call are saved in a database, along with the time of the call, and the result given to the user. Calling this endpoint will return all statistics about the calls made so far.
+// @ID get-fizz-buzz-stats
+// @Tags fizz-buzz
+// @Produce  json
+// @Success 200 {object} storage.StatsCounterDto
+// @Failure 503 {object} server.HTTPError
+// @Router /stats [get]
+func statisticsHandler() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		// Retrieve the parameters and stats of the last call to the fizz-buzz endpoint
+		stats, err := storage.GetLastCalls()
+		if err != nil {
+			c.JSON(http.StatusServiceUnavailable, NewHTTPError(http.StatusServiceUnavailable, err.Error()))
+			return
+		}
+
+		// Return the result
+		c.JSON(200, stats)
 	}
 }

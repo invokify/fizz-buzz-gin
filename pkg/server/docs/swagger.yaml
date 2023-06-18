@@ -3,6 +3,34 @@ definitions:
     properties:
       message: {}
     type: object
+  storage.StatsCounterDto:
+    properties:
+      count:
+        type: integer
+      stats:
+        items:
+          $ref: '#/definitions/storage.StatsDto'
+        type: array
+    type: object
+  storage.StatsDto:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      int1:
+        type: integer
+      int2:
+        type: integer
+      limit:
+        type: integer
+      result:
+        type: string
+      str1:
+        type: string
+      str2:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -55,6 +83,28 @@ paths:
           schema:
             $ref: '#/definitions/server.HTTPError'
       summary: Launches the game with the required parameters
+      tags:
+      - fizz-buzz
+  /stats:
+    get:
+      description: Everytime the fizz-buzz endpoint is called, the parameters related
+        to the call are saved in a database, along with the time of the call, and
+        the result given to the user. Calling this endpoint will return all statistics
+        about the calls made so far.
+      operationId: get-fizz-buzz-stats
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/storage.StatsCounterDto'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Returns the parameters and result of the last calls to the fizz-buzz
+        endpoint
       tags:
       - fizz-buzz
 swagger: "2.0"
